@@ -24,20 +24,35 @@ export const links = [
   },
 ] as const;
 
-export const buttons = [
+export const userLinks = [
   {
     id: 0,
-    name: "shopping",
-    icon: React.createElement(LuShoppingBag),
+    name: "Sign in",
+    url: "/signin",
   },
   {
     id: 1,
-    name: "user",
-    icon: React.createElement(LuUser),
+    name: "My Orders",
+    url: "/my-account/orders",
   },
   {
     id: 2,
-    name: "search",
-    icon: React.createElement(LuSearch),
+    name: "Account Settings",
+    url: "/myaccount-settings",
+  },
+  {
+    id: 3,
+    name: "Address book",
+    url: "/my-account/addressbook",
+  },
+  {
+    id: 4,
+    name: "Wallet",
+    url: "/my-account/wallet",
+  },
+  {
+    id: 5,
+    name: "Saved Items",
+    url: "/wishlist/saveditems",
   },
 ] as const;
