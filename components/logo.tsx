@@ -5,7 +5,7 @@ const quicksand = Quicksand({ subsets: ["latin"] });
 
 const Logo = () => {
   return (
-    <div className="flex-1 flex items-center justify-center">
+    <div className="select-none">
       <a
         href="/"
         className={`${quicksand.className} text-3xl font-semibold tracking-wider`}
