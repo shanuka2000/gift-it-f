@@ -3,7 +3,7 @@ import { IoClose } from "react-icons/io5";
 
 const UserCart = () => {
   return (
-    <div className="absolute bg-transparent mx-auto w-full flex items-center justify-center">
+    <div className="absolute bg-transparent mx-auto w-[30rem] top-4 flex items-center justify-center max-md:-left-[22rem]">
       <div className="flex flex-col w-[80%] gap-4 mt-3 shadow-2xl rounded-lg">
         <div className="w-full flex items-center justify-center px-5 py-6 border-b-2 border-black/25">
           <div className="flex-1 flex items-center justify-center text-lg font-semibold">
