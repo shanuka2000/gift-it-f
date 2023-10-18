@@ -1,7 +1,5 @@
-import { Quicksand } from "next/font/google";
+import { quicksand } from "@/app/fonts";
 import React from "react";
-
-const quicksand = Quicksand({ subsets: ["latin"] });
 
 const Logo = () => {
   return (
