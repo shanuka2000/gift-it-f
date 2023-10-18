@@ -30,9 +30,11 @@ const Navbar = () => {
             {!true && (
               <p className="absolute text-[0.6rem] mt-1 font-semibold">1</p>
             )}
+            {!true && <UserCart />}
           </li>
-          <li className="cursor-pointer">
+          <li className="cursor-pointer relative flex items-center justify-center">
             <LuUser />
+            {!true && <UserDropdown />}
           </li>
           <li className="cursor-pointer">
             <LuSearch />
@@ -41,8 +43,6 @@ const Navbar = () => {
             <LuMenu className="text-lg block md:hidden" />
           </li>
         </ul>
-        {!true && <UserDropdown />}
-        {!true && <UserCart />}
       </div>
       {!true && <SideMenu />}
     </nav>
