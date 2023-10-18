@@ -1,71 +1,80 @@
 import React from "react";
-import Link from "next/link";
-import { links, userLinks } from "@/lib/data";
-import { LuChevronRight, LuMenu, LuSearch, LuUser } from "react-icons/lu";
-import { IoBagOutline, IoClose } from "react-icons/io5";
 import Logo from "./logo";
+import { links, userLinks } from "@/lib/data";
+import Link from "next/link";
+
+import { IoBagOutline, IoClose } from "react-icons/io5";
+import { LuChevronRight, LuMenu, LuSearch, LuUser } from "react-icons/lu";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-center items-center fixed top-0 z-50 w-full py-7 max-md:flex-col bg-white">
-      <div className="flex items-center justify-around mx-auto w-full max-w-screen-2xl max-md:justify-between  px-6 sm:px-16">
+    <nav className="fixed top-0 z-50 w-full bg-white">
+      <div className="relative flex items-center justify-between px-10 py-5 w-full md:justify-around">
         <Logo />
-
-        <ul className="flex gap-[2rem] max-md:hidden">
-          {links.map((link) => (
-            <li
-              key={link.id}
-              className="border-b-2 border-b-transparent font-light hover:border-black transition-all"
-            >
-              <Link href={link.link}>{link.name}</Link>
+        <ul className="gap-[2rem] hidden md:flex">
+          {links.map((item) => (
+            <li key={item.id} className="font-semibold">
+              <Link href={item.link}>{item.name}</Link>
             </li>
           ))}
         </ul>
-        <ul className="flex items-center justify-center gap-[2rem] text-xl max-md:gap-3">
-          <li className="cursor-pointer relative flex items-center justify-center">
-            <IoBagOutline className="font-bolder" />
-            {!true && (
-              <p className="absolute text-[0.6rem] mt-1 font-semibold">1</p>
-            )}
-            {!true && <UserCart />}
+        <ul className="flex gap-3 md:gap-[2rem] text-xl ">
+          <li className="relative flex items-center justify-center cursor-pointer">
+            <IoBagOutline />
+            <p className="absolute text-[0.6rem] mt-1 font-semibold">1</p>
           </li>
-          <li className="cursor-pointer relative flex items-center justify-center">
+          <li className="cursor-pointer">
             <LuUser />
-            {!true && <UserDropdown />}
           </li>
           <li className="cursor-pointer">
             <LuSearch />
           </li>
-          <li>
-            <LuMenu className="text-lg block md:hidden" />
+          <li className="md:hidden cursor-pointer">
+            <LuMenu />
           </li>
         </ul>
       </div>
       {!true && <SideMenu />}
+      {!true && <UserCart />}
+      {!true && <UserDropdown />}
     </nav>
   );
 };
 
 export default Navbar;
 
+const UserDropdown = () => {
+  return (
+    <div className="absolute w-full bg-transparent flex items-center justify-center md:justify-end">
+      <div className="bg-white rounded-lg shadow-xl w-[80%] md:w-fit md:mr-[9rem]">
+        <ul className="flex flex-col py-2">
+          {userLinks.map((item) => (
+            <li key={item.id} className="flex px-5 py-2 uppercase">
+              <Link href={item.url}>{item.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+};
+
 const UserCart = () => {
   return (
-    <div className="absolute bg-transparent mx-auto w-[30rem] top-4 flex items-center justify-center max-md:-left-[22rem]">
-      <div className="flex flex-col w-[80%] gap-4 mt-3 shadow-2xl rounded-lg">
-        <div className="w-full flex items-center justify-center px-5 py-6 border-b-2 border-black/25">
-          <div className="flex-1 flex items-center justify-center text-lg font-semibold">
-            <h3 className="">Added to shopping bag</h3>
-          </div>
-          <IoClose className="text-base" />
+    <div className="absolute w-full bg-transparent flex items-center justify-center md:justify-end">
+      <div className="bg-white border border-black rounded-lg shadow-xl w-[80%] md:w-[40%] md:mr-6">
+        <div className="flex items-center justify-between px-5 py-4">
+          <h3 className="font-semibold">Added to shopping bag</h3>
+          <IoClose />
         </div>
-        <div className="flex items-center justify-center w-full border-b-2 pb-3 border-black/25">
-          <h3 className="text-black/40">No Items</h3>
+        <div className="border-t border-black/30 py-4 flex items-center justify-center">
+          <p className="text-gray-500">No Items</p>
         </div>
-        <div className="flex flex-col gap-2 pb-3">
-          <button className="bg-black text-white w-[95%] mx-auto py-4">
+        <div className="border-t border-black/30 py-4 flex flex-col items-center justify-center gap-4">
+          <button className="w-[90%] py-4 bg-black text-white font-bold">
             Checkout
           </button>
-          <button className="border-2 border-black boeder w-[95%] mx-auto py-4">
+          <button className="w-[90%] py-4 border border-black font-bold">
             View shopping bag
           </button>
         </div>
@@ -74,33 +83,17 @@ const UserCart = () => {
   );
 };
 
-const UserDropdown = () => {
-  return (
-    <div className="absolute bg-transparent mx-auto w-[25rem] top-4 flex items-center justify-center max-md:-left-[22rem]">
-      <ul className="flex flex-col gap-4 mt-3 shadow-2xl pr-[5rem] pl-4 w-[80%] rounded-lg">
-        {userLinks.map((link) => (
-          <li key={link.id} className="py-1 last:pb-2 first:pt-2">
-            <Link href={link.url} className="uppercase">
-              {link.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-
 const SideMenu = () => {
   return (
-    <div className="w-full px-16 py-4 mt-3 border-t-2 border-black/40">
-      <ul className="flex flex-col gap-[2rem]">
-        {links.map((link) => (
-          <li key={link.id} className=" transition-all">
+    <div className="bg-white border-t-2 border-black/30">
+      <ul className="flex flex-col items-center justify-center shadow-xl py-3">
+        {links.map((item) => (
+          <li key={item.id} className="py-[1rem]  w-[50%] px-4">
             <Link
-              href={link.link}
-              className="flex items-center justify-between"
+              href={item.link}
+              className="flex items-center justify-between font-semibold"
             >
-              <span>{link.name}</span>
+              <span>{item.name}</span>
               <LuChevronRight />
             </Link>
           </li>
