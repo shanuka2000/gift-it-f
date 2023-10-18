@@ -1,4 +1,5 @@
 import { quicksand } from "@/app/fonts";
+import Image from "next/image";
 import React from "react";
 
 const Logo = () => {
@@ -6,9 +7,17 @@ const Logo = () => {
     <div className="select-none">
       <a
         href="/"
-        className={`${quicksand.className} text-3xl font-semibold tracking-wider`}
+        className={`${quicksand.className} text-3xl font-semibold tracking-wider flex items-center justify-center`}
       >
-        gift-it
+        <Image
+          src="/logobox.png"
+          alt="logo"
+          width={25}
+          height={25}
+          quality={95}
+          priority
+        />
+        <span>-it</span>
       </a>
     </div>
   );
