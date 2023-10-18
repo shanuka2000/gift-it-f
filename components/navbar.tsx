@@ -15,7 +15,7 @@ const Navbar = () => {
           {links.map((link) => (
             <li
               key={link.id}
-              className="border-b-2 border-b-transparent hover:border-black transition-all"
+              className="border-b-2 border-b-transparent font-light hover:border-black transition-all"
             >
               <Link href={link.link}>{link.name}</Link>
             </li>
@@ -27,7 +27,7 @@ const Navbar = () => {
             {!true && (
               <p className="absolute text-[0.6rem] mt-1 font-semibold">1</p>
             )}
-            {true && <UserCart />}
+            {!true && <UserCart />}
           </li>
           <li className="cursor-pointer relative flex items-center justify-center">
             <LuUser />
