@@ -1,6 +1,3 @@
-import React from "react";
-import { LuSearch, LuShoppingBag, LuUser } from "react-icons/lu";
-
 export const links = [
   {
     id: 0,
