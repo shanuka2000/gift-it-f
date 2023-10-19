@@ -10,7 +10,7 @@ const Logo = () => {
         className={`${quicksand.className} text-3xl font-semibold tracking-wider flex items-center justify-center`}
       >
         <Image
-          src="/logobox.png"
+          src="/logobox.svg"
           alt="logo"
           width={25}
           height={25}
