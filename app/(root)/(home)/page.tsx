@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+const Home = () => {
   return (
     <main className=" flex flex-col items-center justify-center w-full py-12 max-w-screen-2xl">
       <section className="flex flex-col items-center w-full pt-[2.5rem] md:flex-row">
@@ -33,4 +33,6 @@ export default function Home() {
       </section>
     </main>
   );
-}
+};
+
+export default Home;
