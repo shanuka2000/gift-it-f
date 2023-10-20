@@ -22,7 +22,7 @@ const Home = () => {
             alt="hero-image"
             width={400}
             height={100}
-            className="hidden md:block"
+            className="hidden md:block w-auto h-auto"
           />
           <div className="relative h-[15rem] flex items-center justify-between gap-16 md:hidden">
             <Image src="/gift-box.png" alt="gift-box" width={100} height={50} />
