@@ -21,7 +21,7 @@ function NotFound() {
           </p>
           <Link
             href="/"
-            className="flex items-center justify-center w-[8rem] h-[2.5rem] my-4 uppercase bg-black text-white font-semibold rounded-md"
+            className="flex items-center justify-center w-[8rem] h-[2.5rem] my-4 uppercase bg-gradient-to-r from-[#ffc73b] to-[#ff4440] focus:scale-110 hover:scale-110 transition-all text-white font-bold rounded-md"
           >
             <span>Home</span>
           </Link>
