@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Logo from "./logo";
 import { links, userLinks } from "@/lib/data";
 import Link from "next/link";
@@ -7,6 +9,14 @@ import { IoBagOutline, IoClose } from "react-icons/io5";
 import { LuChevronRight, LuMenu, LuSearch, LuUser } from "react-icons/lu";
 
 const Navbar = () => {
+  const [sideMenuVisible, setSideMenuVisible] = useState(false);
+  const [cartVisible, setCartVisible] = useState(false);
+  const [userAccountMenuVisible, setUserAccountMenuVisible] = useState(false);
+
+  const onCloseCart = () => {
+    setCartVisible(false);
+  };
+
   return (
     <nav className="fixed top-0 z-50 w-full bg-white">
       <div className="relative flex items-center justify-between px-10 py-5 w-full md:justify-around">
@@ -19,24 +29,45 @@ const Navbar = () => {
           ))}
         </ul>
         <ul className="flex gap-3 md:gap-[2rem] text-xl ">
-          <li className="relative flex items-center justify-center cursor-pointer">
+          <li
+            className="relative flex items-center justify-center cursor-pointer"
+            onClick={() => {
+              setCartVisible(!cartVisible);
+              setSideMenuVisible(false);
+              setUserAccountMenuVisible(false);
+            }}
+          >
             <IoBagOutline />
             <p className="absolute text-[0.6rem] mt-1 font-semibold">1</p>
           </li>
-          <li className="cursor-pointer">
+          <li
+            className="cursor-pointer"
+            onClick={() => {
+              setUserAccountMenuVisible(!userAccountMenuVisible);
+              setCartVisible(false);
+              setSideMenuVisible(false);
+            }}
+          >
             <LuUser />
           </li>
           <li className="cursor-pointer">
             <LuSearch />
           </li>
-          <li className="md:hidden cursor-pointer">
+          <li
+            className="md:hidden cursor-pointer"
+            onClick={() => {
+              setSideMenuVisible(!sideMenuVisible);
+              setCartVisible(false);
+              setUserAccountMenuVisible(false);
+            }}
+          >
             <LuMenu />
           </li>
         </ul>
       </div>
-      {!true && <SideMenu />}
-      {!true && <UserCart />}
-      {!true && <UserDropdown />}
+      {sideMenuVisible && <SideMenu />}
+      {cartVisible && <UserCart onSubmit={onCloseCart} />}
+      {userAccountMenuVisible && <UserDropdown />}
     </nav>
   );
 };
@@ -59,13 +90,23 @@ const UserDropdown = () => {
   );
 };
 
-const UserCart = () => {
+type UserCartProps = {
+  onSubmit: () => void;
+};
+
+const UserCart = ({ onSubmit }: UserCartProps) => {
+  const handleClose = () => {
+    onSubmit();
+  };
+
   return (
     <div className="absolute w-full bg-transparent flex items-center justify-center md:justify-end">
       <div className="bg-white border border-black rounded-lg shadow-xl w-[80%] md:w-[40%] md:mr-6">
         <div className="flex items-center justify-between px-5 py-4">
           <h3 className="font-semibold">Added to shopping bag</h3>
-          <IoClose />
+          <span onClick={handleClose} className="cursor-pointer">
+            <IoClose />
+          </span>
         </div>
         <div className="border-t border-black/30 py-4 flex items-center justify-center">
           <p className="text-gray-500">No Items</p>
