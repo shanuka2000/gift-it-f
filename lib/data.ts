@@ -53,3 +53,11 @@ export const userLinks = [
     url: "/wishlist/saveditems",
   },
 ] as const;
+
+export const userTitles = [
+  { id: 0, title: "Mr." },
+  { id: 1, title: "Ms." },
+  { id: 2, title: "Mrs." },
+  { id: 3, title: "Mx." },
+  { id: 4, title: "I'd rather not say." },
+] as const;
