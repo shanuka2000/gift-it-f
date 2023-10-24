@@ -1,12 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "./logo";
 import { links, userLinks } from "@/lib/data";
 import Link from "next/link";
+import { AnimatePresence, motion, usePresence } from "framer-motion";
 
 import { IoBagOutline, IoClose } from "react-icons/io5";
 import { LuChevronRight, LuMenu, LuSearch, LuUser } from "react-icons/lu";
+import gsap from "gsap";
 
 const Navbar = () => {
   const [sideMenuVisible, setSideMenuVisible] = useState(false);
@@ -65,9 +67,11 @@ const Navbar = () => {
           </li>
         </ul>
       </div>
-      {sideMenuVisible && <SideMenu />}
-      {cartVisible && <UserCart onSubmit={onCloseCart} />}
-      {userAccountMenuVisible && <UserDropdown />}
+      <AnimatePresence>
+        {sideMenuVisible && <SideMenu />}
+        {cartVisible ? <UserCart onSubmit={onCloseCart} /> : null}
+        {userAccountMenuVisible && <UserDropdown />}
+      </AnimatePresence>
     </nav>
   );
 };
@@ -75,8 +79,26 @@ const Navbar = () => {
 export default Navbar;
 
 const UserDropdown = () => {
+  const ref = useRef(null);
+  const [isPresent, safeToRemove] = usePresence();
+
+  useEffect(() => {
+    if (!isPresent) {
+      gsap.to(ref.current, {
+        opacity: 0,
+        translateY: -100,
+        onComplete: () => safeToRemove?.(),
+      });
+    }
+  }, [isPresent, safeToRemove]);
+
   return (
-    <div className="absolute w-full bg-transparent flex items-center justify-center md:justify-end">
+    <motion.div
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      ref={ref}
+      className="absolute w-full bg-transparent flex items-center justify-center md:justify-end"
+    >
       <div className="bg-white rounded-lg shadow-xl w-[80%] md:w-fit md:mr-[9rem]">
         <ul className="flex flex-col py-2">
           {userLinks.map((item) => (
@@ -86,7 +108,7 @@ const UserDropdown = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -99,8 +121,26 @@ const UserCart = ({ onSubmit }: UserCartProps) => {
     onSubmit();
   };
 
+  const ref = useRef(null);
+  const [isPresent, safeToRemove] = usePresence();
+
+  useEffect(() => {
+    if (!isPresent) {
+      gsap.to(ref.current, {
+        opacity: 0,
+        translateY: -100,
+        onComplete: () => safeToRemove?.(),
+      });
+    }
+  }, [isPresent, safeToRemove]);
+
   return (
-    <div className="absolute w-full bg-transparent flex items-center justify-center md:justify-end">
+    <motion.div
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      ref={ref}
+      className="absolute w-full bg-transparent flex items-center justify-center md:justify-end"
+    >
       <div className="bg-white border border-black rounded-lg shadow-xl w-[80%] md:w-[40%] md:mr-6">
         <div className="flex items-center justify-between px-5 py-4">
           <h3 className="font-semibold">Added to shopping bag</h3>
@@ -120,16 +160,55 @@ const UserCart = ({ onSubmit }: UserCartProps) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
+const fadeInAnimationVariants = {
+  initial: {
+    opacity: 0,
+    x: -100,
+  },
+  animate: (index: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 0.1 * index,
+    },
+  }),
+};
+
 const SideMenu = () => {
+  const ref = useRef(null);
+  const [isPresent, safeToRemove] = usePresence();
+
+  useEffect(() => {
+    if (!isPresent) {
+      gsap.to(ref.current, {
+        opacity: 0,
+        translateY: -10,
+        onComplete: () => safeToRemove?.(),
+      });
+    }
+  }, [isPresent, safeToRemove]);
+
   return (
-    <div className="bg-white border-t-2 border-black/30">
+    <motion.div
+      initial={{ opacity: 0, y: -100 }}
+      animate={{ opacity: 1, y: 0 }}
+      ref={ref}
+      className="bg-white border-t-2 border-black/30"
+    >
       <ul className="flex flex-col items-center justify-center shadow-xl py-3">
         {links.map((item) => (
-          <li key={item.id} className="py-[1rem]  w-[50%] px-4">
+          <motion.li
+            initial="initial"
+            whileInView="animate"
+            variants={fadeInAnimationVariants}
+            custom={item.id}
+            key={item.id}
+            className="py-[1rem]  w-[50%] px-4"
+          >
             <Link
               href={item.link}
               className="flex items-center justify-between font-semibold"
@@ -137,9 +216,9 @@ const SideMenu = () => {
               <span>{item.name}</span>
               <LuChevronRight />
             </Link>
-          </li>
+          </motion.li>
         ))}
       </ul>
-    </div>
+    </motion.div>
   );
 };
